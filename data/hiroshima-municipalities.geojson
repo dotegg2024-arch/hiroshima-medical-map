@@ -1,0 +1,255 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "広島市", "region": "hiroshima" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.28, 34.52], [132.35, 34.58], [132.45, 34.60], [132.55, 34.55],
+          [132.58, 34.48], [132.55, 34.38], [132.48, 34.32], [132.38, 34.32],
+          [132.32, 34.38], [132.28, 34.45], [132.28, 34.52]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "安芸高田市", "region": "hiroshima" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.52, 34.62], [132.62, 34.68], [132.72, 34.65], [132.70, 34.55],
+          [132.60, 34.50], [132.50, 34.55], [132.52, 34.62]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "府中町", "region": "hiroshima" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.50, 34.40], [132.53, 34.42], [132.55, 34.40], [132.53, 34.38], [132.50, 34.40]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "海田町", "region": "hiroshima" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.53, 34.36], [132.56, 34.38], [132.58, 34.36], [132.55, 34.34], [132.53, 34.36]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "熊野町", "region": "hiroshima" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.55, 34.32], [132.60, 34.35], [132.62, 34.32], [132.58, 34.30], [132.55, 34.32]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "坂町", "region": "hiroshima" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.50, 34.32], [132.53, 34.34], [132.55, 34.32], [132.52, 34.30], [132.50, 34.32]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "安芸太田町", "region": "hiroshima" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.12, 34.55], [132.25, 34.62], [132.35, 34.58], [132.30, 34.50],
+          [132.18, 34.48], [132.12, 34.55]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "北広島町", "region": "hiroshima" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.25, 34.65], [132.45, 34.75], [132.55, 34.72], [132.50, 34.62],
+          [132.35, 34.58], [132.25, 34.65]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "大竹市", "region": "hiroshimaNishi" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.15, 34.28], [132.22, 34.32], [132.28, 34.28], [132.25, 34.20],
+          [132.18, 34.18], [132.12, 34.22], [132.15, 34.28]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "廿日市市", "region": "hiroshimaNishi" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.18, 34.45], [132.30, 34.50], [132.35, 34.45], [132.32, 34.35],
+          [132.25, 34.30], [132.18, 34.32], [132.12, 34.38], [132.18, 34.45]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "呉市", "region": "kure" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.48, 34.32], [132.58, 34.32], [132.68, 34.28], [132.70, 34.18],
+          [132.62, 34.12], [132.48, 34.12], [132.42, 34.18], [132.42, 34.28], [132.48, 34.32]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "江田島市", "region": "kure" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.38, 34.22], [132.45, 34.25], [132.50, 34.22], [132.48, 34.15],
+          [132.40, 34.12], [132.35, 34.18], [132.38, 34.22]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "東広島市", "region": "hiroshimaChuo" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.62, 34.55], [132.78, 34.58], [132.88, 34.52], [132.85, 34.38],
+          [132.72, 34.32], [132.60, 34.38], [132.58, 34.48], [132.62, 34.55]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "竹原市", "region": "hiroshimaChuo" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.88, 34.38], [132.98, 34.40], [133.02, 34.35], [132.98, 34.28],
+          [132.88, 34.28], [132.85, 34.32], [132.88, 34.38]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "大崎上島町", "region": "hiroshimaChuo" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.88, 34.28], [132.95, 34.30], [133.00, 34.27], [132.98, 34.22],
+          [132.90, 34.20], [132.85, 34.24], [132.88, 34.28]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "三原市", "region": "bisan" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.95, 34.48], [133.10, 34.55], [133.20, 34.50], [133.18, 34.38],
+          [133.05, 34.32], [132.92, 34.38], [132.95, 34.48]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "尾道市", "region": "bisan" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [133.08, 34.50], [133.22, 34.55], [133.32, 34.48], [133.28, 34.35],
+          [133.15, 34.30], [133.05, 34.35], [133.08, 34.42], [133.08, 34.50]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "世羅町", "region": "bisan" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.95, 34.58], [133.12, 34.65], [133.22, 34.58], [133.15, 34.50],
+          [133.00, 34.48], [132.95, 34.55], [132.95, 34.58]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "福山市", "region": "fukuyamaFuchu" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [133.28, 34.55], [133.45, 34.58], [133.55, 34.52], [133.52, 34.40],
+          [133.40, 34.35], [133.28, 34.38], [133.25, 34.48], [133.28, 34.55]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "府中市", "region": "fukuyamaFuchu" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [133.18, 34.58], [133.30, 34.62], [133.38, 34.58], [133.35, 34.50],
+          [133.22, 34.48], [133.18, 34.52], [133.18, 34.58]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "神石高原町", "region": "fukuyamaFuchu" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [133.18, 34.68], [133.35, 34.75], [133.45, 34.70], [133.42, 34.60],
+          [133.28, 34.58], [133.18, 34.62], [133.18, 34.68]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "三次市", "region": "bihoku" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.68, 34.75], [132.88, 34.88], [133.02, 34.85], [133.00, 34.72],
+          [132.85, 34.65], [132.70, 34.68], [132.68, 34.75]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "庄原市", "region": "bihoku" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.88, 34.92], [133.15, 35.02], [133.30, 34.95], [133.25, 34.78],
+          [133.05, 34.72], [132.90, 34.78], [132.88, 34.92]
+        ]]
+      }
+    }
+  ]
+}
