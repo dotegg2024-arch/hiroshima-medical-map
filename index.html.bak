@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>広島県医療圏リソースマップ | 2040年再編シミュレーション</title>
+  <meta name="description" content="広島県7つの2次医療圏における医療施設リソースを可視化し、2040年の人口動態に基づく医療圏再編をシミュレーション">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon">🏥</div>
+          <div class="logo-text">
+            <h1>広島県医療圏リソースマップ</h1>
+            <p>2040年再編シミュレーション</p>
+          </div>
+        </div>
+        <div class="header-controls">
+          <button class="btn btn-secondary" onclick="window.print()">
+            📄 印刷
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Map Section -->
+      <section class="map-section">
+        <!-- Prefecture Stats -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📊 広島県全体統計</span>
+          </div>
+          <div class="card-body">
+            <div id="prefecture-stats" class="stats-grid">
+              <!-- 統計がJSで挿入される -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🗺️ 医療圏・病院マップ</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">円の大きさ＝病床数</span>
+          </div>
+          <div class="card-body">
+            <!-- マップ表示切替 -->
+            <div class="map-controls">
+              <div class="map-view-toggle">
+                <button class="btn active" id="btn-map-leaflet" onclick="switchMapView('leaflet')">🗺️ 詳細地図</button>
+                <button class="btn" id="btn-map-simple" onclick="switchMapView('simple')">📍 シンプル</button>
+              </div>
+              <div class="map-view-toggle" id="filter-controls">
+                <button class="btn active" id="btn-filter-all" onclick="filterMap('all')">全表示</button>
+                <button class="btn" id="btn-filter-3" onclick="filterMap(3)">3次救急</button>
+                <button class="btn" id="btn-filter-2" onclick="filterMap(2)">2次救急</button>
+                <button class="btn" id="btn-filter-1" onclick="filterMap(1)">1次救急</button>
+              </div>
+              <button class="btn btn-secondary" onclick="resetMapView()">🔄 リセット</button>
+            </div>
+
+            <!-- Leaflet マップ -->
+            <div id="leaflet-map-container">
+              <div id="leaflet-map"></div>
+            </div>
+
+            <!-- シンプルマップ（非表示） -->
+            <div id="simple-map-container" style="display: none;">
+              <div id="map-container" class="map-container">
+                <!-- SVGマップがJSで挿入される -->
+              </div>
+            </div>
+
+            <div id="map-legend" class="map-legend">
+              <!-- 凡例がJSで挿入される -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Population Chart -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📈 人口推移予測（2020-2040年）</span>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="population-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulation Panel -->
+        <div class="simulation-panel">
+          <div class="simulation-title">
+            🔬 医療圏再編シミュレーション
+          </div>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: var(--space-md);">
+            2040年の人口動態を考慮した医療圏再編シナリオを比較します
+          </p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn active" data-scenario="current">現行（7医療圏）</button>
+            <button class="scenario-btn" data-scenario="scenario1">6医療圏案<br><small>広島西→広島統合</small></button>
+            <button class="scenario-btn" data-scenario="scenario2">5医療圏案<br><small>+備北→広島中央統合</small></button>
+          </div>
+          <div id="simulation-result" class="simulation-result">
+            <!-- シミュレーション結果がJSで挿入される -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Panel (Sidebar) - 全データ表示 -->
+      <aside class="info-panel" id="all-regions-panel">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📊 広島県 7医療圏 一覧</span>
+          </div>
+          <div class="card-body" id="all-regions-content" style="max-height: calc(100vh - 200px); overflow-y: auto;">
+            <!-- JSで全医療圏データが挿入される -->
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>広島県医療圏リソースマップ © 2024 | データ更新: 2024年1月</p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    // Leafletマップインスタンス（グローバル）
+    window.hiroshimaMap = null;
+
+    // マップ表示切替
+    function switchMapView(view) {
+      const leafletContainer = document.getElementById('leaflet-map-container');
+      const simpleContainer = document.getElementById('simple-map-container');
+      const btnLeaflet = document.getElementById('btn-map-leaflet');
+      const btnSimple = document.getElementById('btn-map-simple');
+
+      if (view === 'leaflet') {
+        leafletContainer.style.display = 'block';
+        simpleContainer.style.display = 'none';
+        btnLeaflet.classList.add('active');
+        btnSimple.classList.remove('active');
+
+        // Leafletマップを初期化（まだの場合）
+        if (!window.hiroshimaMap) {
+          window.hiroshimaMap = new HiroshimaMap('leaflet-map');
+        } else {
+          window.hiroshimaMap.map.invalidateSize();
+        }
+        document.getElementById('filter-controls').style.visibility = 'visible';
+      } else {
+        leafletContainer.style.display = 'none';
+        simpleContainer.style.display = 'block';
+        btnLeaflet.classList.remove('active');
+        btnSimple.classList.add('active');
+
+        // Hide filters in simple view
+        document.getElementById('filter-controls').style.visibility = 'hidden';
+      }
+    }
+
+    // マップフィルター
+    function filterMap(level) {
+      // ボタンのアクティブ状態更新
+      document.querySelectorAll('[id^="btn-filter-"]').forEach(btn => btn.classList.remove('active'));
+      const activeBtnId = level === 'all' ? 'btn-filter-all' : `btn-filter-${level}`;
+      document.getElementById(activeBtnId).classList.add('active');
+
+      if (window.hiroshimaMap) {
+        window.hiroshimaMap.filterMarkers(level);
+      }
+    }
+
+    // マップリセット
+    function resetMapView() {
+      if (window.hiroshimaMap) {
+        window.hiroshimaMap.resetView();
+        // フィルターもリセット
+        filterMap('all');
+      }
+
+      // URLとアプリ状態もリセット
+      if (window.app) {
+        window.app.currentRegion = null;
+        window.app.updateUrl();
+      }
+    }
+
+    // ページ読み込み時にLeafletマップを初期化
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        window.hiroshimaMap = new HiroshimaMap('leaflet-map');
+      }, 100);
+    });
+  </script>
+</body>
+
+</html>

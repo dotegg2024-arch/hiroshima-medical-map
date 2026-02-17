@@ -23,134 +23,6 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/style.css">
-
-  <style>
-    /* Leaflet マップ用追加スタイル */
-    #leaflet-map {
-      width: 100%;
-      height: 450px;
-      border-radius: var(--radius-lg);
-      z-index: 1;
-    }
-
-    .region-label-text {
-      font-weight: 700;
-      font-size: 13px;
-      white-space: nowrap;
-      text-align: center;
-    }
-
-    .hospital-popup-container .leaflet-popup-content-wrapper {
-      background: rgba(15, 23, 42, 0.95);
-      color: #F1F5F9;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    }
-
-    .hospital-popup-container .leaflet-popup-tip {
-      background: rgba(15, 23, 42, 0.95);
-    }
-
-    .hospital-popup-container .leaflet-popup-content {
-      margin: 12px 16px;
-    }
-
-    .hospital-tooltip {
-      background: rgba(15, 23, 42, 0.95) !important;
-      color: #F1F5F9 !important;
-      border: 1px solid rgba(255, 255, 255, 0.1) !important;
-      border-radius: 8px !important;
-      padding: 6px 12px !important;
-      font-size: 12px !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    }
-
-    .hospital-tooltip::before {
-      border-top-color: rgba(15, 23, 42, 0.95) !important;
-    }
-
-    .leaflet-control-zoom a {
-      background: rgba(15, 23, 42, 0.95) !important;
-      color: #F1F5F9 !important;
-      border-color: rgba(255, 255, 255, 0.1) !important;
-    }
-
-    .leaflet-control-zoom a:hover {
-      background: rgba(30, 41, 59, 0.95) !important;
-    }
-
-    .map-controls {
-      display: flex;
-      gap: var(--space-sm);
-      margin-bottom: var(--space-md);
-    }
-
-    .map-view-toggle {
-      display: flex;
-      background: var(--glass-bg);
-      border-radius: var(--radius-md);
-      padding: 4px;
-      gap: 4px;
-      border: 1px solid var(--border-color);
-    }
-
-    .map-view-toggle .btn {
-      border-radius: var(--radius-sm);
-      background: transparent;
-      color: var(--text-secondary);
-      border: none;
-      padding: var(--space-sm) var(--space-md);
-    }
-
-    .map-view-toggle .btn.active {
-      background: var(--gradient-primary);
-      color: white;
-    }
-
-    /* ライトテーマのポップアップ */
-    .hospital-popup-light .leaflet-popup-content-wrapper {
-      background: white;
-      color: #1e293b;
-      border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-    }
-
-    .hospital-popup-light .leaflet-popup-tip {
-      background: white;
-    }
-
-    .hospital-tooltip-light {
-      background: white !important;
-      color: #1e293b !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 8px !important;
-      padding: 8px 12px !important;
-      font-size: 13px !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-    }
-
-    /* 地図の高さ調整 */
-    #leaflet-map {
-      height: 500px !important;
-    }
-
-    /* 市町村ツールチップ */
-    .municipality-tooltip {
-      background: white !important;
-      color: #1e293b !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 8px !important;
-      padding: 8px 12px !important;
-      font-size: 13px !important;
-      font-weight: 600 !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-    }
-
-    .municipality-tooltip::before {
-      border-top-color: white !important;
-    }
-  </style>
 </head>
 
 <body>
@@ -177,18 +49,6 @@
     <main class="main-content">
       <!-- Map Section -->
       <section class="map-section">
-        <!-- Prefecture Stats -->
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">📊 広島県全体統計</span>
-          </div>
-          <div class="card-body">
-            <div id="prefecture-stats" class="stats-grid">
-              <!-- 統計がJSで挿入される -->
-            </div>
-          </div>
-        </div>
-
         <!-- Map -->
         <div class="card">
           <div class="card-header">
@@ -202,7 +62,15 @@
                 <button class="btn active" id="btn-map-leaflet" onclick="switchMapView('leaflet')">🗺️ 詳細地図</button>
                 <button class="btn" id="btn-map-simple" onclick="switchMapView('simple')">📍 シンプル</button>
               </div>
+              <div class="map-view-toggle" id="filter-controls">
+                <button class="btn active" id="btn-filter-all" onclick="filterMap('all')">全表示</button>
+                <button class="btn" id="btn-filter-3" onclick="filterMap(3)">3次救急</button>
+                <button class="btn" id="btn-filter-2" onclick="filterMap(2)">2次救急</button>
+                <button class="btn" id="btn-filter-1" onclick="filterMap(1)">1次救急</button>
+              </div>
               <button class="btn btn-secondary" onclick="resetMapView()">🔄 リセット</button>
+              <button class="btn btn-accent" id="btn-pop-anim" onclick="toggleHumanAnimation()"
+                style="margin-left:8px;">👥 人口アニメーション</button>
             </div>
 
             <!-- Leaflet マップ -->
@@ -217,9 +85,7 @@
               </div>
             </div>
 
-            <div id="map-legend" class="map-legend">
-              <!-- 凡例がJSで挿入される -->
-            </div>
+
           </div>
         </div>
 
@@ -235,27 +101,78 @@
           </div>
         </div>
 
-        <!-- Simulation Panel -->
-        <div class="simulation-panel">
-          <div class="simulation-title">
-            🔬 医療圏再編シミュレーション
-          </div>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: var(--space-md);">
-            2040年の人口動態を考慮した医療圏再編シナリオを比較します
-          </p>
-          <div class="scenario-buttons">
-            <button class="scenario-btn active" data-scenario="current">現行（7医療圏）</button>
-            <button class="scenario-btn" data-scenario="scenario1">6医療圏案<br><small>広島西→広島統合</small></button>
-            <button class="scenario-btn" data-scenario="scenario2">5医療圏案<br><small>+備北→広島中央統合</small></button>
-          </div>
-          <div id="simulation-result" class="simulation-result">
-            <!-- シミュレーション結果がJSで挿入される -->
-          </div>
-        </div>
+
       </section>
 
-      <!-- Info Panel (Sidebar) - 全データ表示 -->
+      <!-- Info Panel (Sidebar) -->
       <aside class="info-panel" id="all-regions-panel">
+        <div id="resize-handle" class="resize-handle"></div>
+
+        <!-- Prefecture Stats (Moved from left) -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📊 広島県全体統計</span>
+          </div>
+          <div class="card-body">
+            <div id="prefecture-stats" class="stats-grid">
+              <!-- 統計がJSで挿入される -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulation Panel -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🔬 医療圏再編シミュレーション</span>
+          </div>
+          <div class="card-body">
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: var(--space-md);">
+              2040年の人口動態を考慮したシナリオ比較
+            </p>
+            <!-- Segment Control Switch -->
+            <div class="segment-control-container">
+              <div class="segment-control">
+                <input type="radio" name="scenario" id="scenario-current" value="current" checked>
+                <label for="scenario-current">
+                  <span>現行</span>
+                  <small>7医療圏</small>
+                </label>
+
+                <input type="radio" name="scenario" id="scenario-custom" value="custom">
+                <label for="scenario-custom">
+                  <span>カスタム</span>
+                  <small>自由統合</small>
+                </label>
+
+                <div class="segment-indicator"></div>
+              </div>
+            </div>
+
+            <!-- Custom Simulation Controls -->
+            <div id="custom-controls"
+              style="display:none; margin-bottom:12px; padding:10px; background:var(--bg-muted); border-radius:8px; border:1px dashed var(--border-color);">
+              <div style="font-size:0.8rem; font-weight:bold; margin-bottom:8px; color:var(--text-primary);">
+                🖱️ マップをクリックして選択
+              </div>
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <button class="btn btn-sm btn-accent" id="btn-custom-merge" onclick="window.app.mergeSelectedRegions()"
+                  style="width:100%" disabled>🔗 選択した圏域を統合</button>
+                <button class="btn btn-sm btn-secondary" onclick="window.app.resetCustomSimulation()"
+                  style="width:100%">🔄
+                  リセット</button>
+              </div>
+              <div id="custom-status" style="font-size:0.75rem; color:var(--text-muted); margin-top:8px;">
+                未選択
+              </div>
+            </div>
+
+            <div id="simulation-result" class="simulation-result" style="margin-top:0;">
+              <!-- Results inserted here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Region List -->
         <div class="card">
           <div class="card-header">
             <span class="card-title">📊 広島県 7医療圏 一覧</span>
@@ -275,12 +192,20 @@
 
   <!-- Scripts -->
   <script src="js/data.js"></script>
+  <script src="js/municipality_data.js"></script>
   <script src="js/map.js"></script>
   <script src="js/main.js"></script>
 
   <script>
     // Leafletマップインスタンス（グローバル）
     window.hiroshimaMap = null;
+
+    // 人口アニメーション切替
+    function toggleHumanAnimation() {
+      if (window.hiroshimaMap) {
+        window.hiroshimaMap.toggleHumanAnimation();
+      }
+    }
 
     // マップ表示切替
     function switchMapView(view) {
@@ -301,11 +226,27 @@
         } else {
           window.hiroshimaMap.map.invalidateSize();
         }
+        document.getElementById('filter-controls').style.visibility = 'visible';
       } else {
         leafletContainer.style.display = 'none';
         simpleContainer.style.display = 'block';
         btnLeaflet.classList.remove('active');
         btnSimple.classList.add('active');
+
+        // Hide filters in simple view
+        document.getElementById('filter-controls').style.visibility = 'hidden';
+      }
+    }
+
+    // マップフィルター
+    function filterMap(level) {
+      // ボタンのアクティブ状態更新
+      document.querySelectorAll('[id^="btn-filter-"]').forEach(btn => btn.classList.remove('active'));
+      const activeBtnId = level === 'all' ? 'btn-filter-all' : `btn-filter-${level}`;
+      document.getElementById(activeBtnId).classList.add('active');
+
+      if (window.hiroshimaMap) {
+        window.hiroshimaMap.filterMarkers(level);
       }
     }
 
@@ -313,6 +254,14 @@
     function resetMapView() {
       if (window.hiroshimaMap) {
         window.hiroshimaMap.resetView();
+        // フィルターもリセット
+        filterMap('all');
+      }
+
+      // URLとアプリ状態もリセット
+      if (window.app) {
+        window.app.currentRegion = null;
+        window.app.updateUrl();
       }
     }
 

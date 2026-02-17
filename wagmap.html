@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+
+<html xml:lang="ja" lang="ja" >
+<head>
+
+    <base href="/hiroshimacity/hiroshimacity/">
+    <script type="text/javascript">
+    var jsBaseDir = "/v/common/Scripts/";
+    </script>
+    <!--[if lte IE 9]>
+    <script>
+        (function()
+        {
+            var base = document.getElementsByTagName('base')[0];
+            base.href = base.href;
+        })();
+    </script>
+    <![endif]-->
+
+    <meta charset="utf-8" />
+    <meta name="robots" content="nofollow">
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8; IE=EmulateIE9; IE=EmulateIE10; IE=EmulateIE11" />
+    <title>ひろしま地図ナビ | オープンデータ一覧</title>
+    <link rel="shortcut icon" href="/hiroshimacity/hiroshimacity/favicon.ico">
+    
+    <link rel="stylesheet" type="text/css" media="all" href="./Content/css/bundles/styles.css">
+    
+    <link rel="stylesheet" type="text/css" media="all" href="./Content/css/bundles/content.themes.base.css">
+
+    <link rel="stylesheet" type="text/css" media="all" href="./Content/CSS/pages/top/common.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="./Content/CSS/pages/top/btn.css" />
+    
+    
+    
+    
+    
+    <script type="text/javascript" src="/v/common/Scripts/bundles/bundles.modernizr.js"></script>
+    
+    <script type="text/javascript" src="/v/common/Scripts/bundles/bundles.jquery.js"></script>
+    <script type="text/javascript" src="/v/common/Scripts/plugin/lib/GeoAccessJS/lib/GeoAccessLoad.js"></script>
+    <script type="text/javascript" src="/v/common/Scripts/plugin/lib/function.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/v/common/Scripts/plugin/lib/fix-ie-css.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/v/common/Scripts/plugin/lib/GeoAccessJS_extend.js" charset="utf-8"></script>
+    
+
+</head>
+<body>
+    
+
+<script>
+    var RedirectHttpsPage = function () {
+        if (location.href.indexOf("https") < 0) {
+            location.href = location.href.replace("http", "https");
+        }
+    }
+    var FQDN = "_map.pref.chiba.lg.jp,gis.pref.okinawa.jp,bousaimap.pref.kochi.lg.jp,_web-gis.pref.shimane.lg.jp,www4.city.otsu.shiga.jp,multi-hazard-map.pref.kyoto.jp,www.gis.pref.okayama.jp,map.city.shiojiri.nagano.jp,map.city.shiojiri.lg.jp";
+    var ModeIntra = "1";
+
+
+
+    if (FQDN && ModeIntra == 1) {
+        var fqdnArr = FQDN.split(",");
+        if ($.inArray(location.host.toString(), fqdnArr) < 0) {
+            RedirectHttpsPage();
+        }
+    }
+</script>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>オープンデータ一覧</title>
+    <link rel="stylesheet" type="text/css" media="all" href="./Content/CSS/pages/top/reset.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="./Content/CSS/pages/top/common.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="./Content/CSS/pages/top/index.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="./Content/CSS/pages/top/carousel.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="./Content/CSS/pages/top/login.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="./Content/CSS/pages/top/btn.css" />
+
+    <script type="text/javascript" src="/v/common/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/v/common/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="/v/common/Scripts/admin/RequestHelper.js"></script>
+    <script type="text/javascript" src="/v/common/Scripts/admin/CommonJs.js"></script>
+    <script type="text/javascript" src="/v/common/Scripts/jquery-ui-1.10.3.js"></script>
+    <style>
+        #contents {
+            clear: both;
+            width: 990px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .contents-inner {
+            width: 990px;
+            background: transparent;
+            margin: 0 auto;
+            padding: 0 0 15px;
+        }
+
+        .pageMds {
+            line-height: 1.5;
+            padding: 10px 0;
+        }
+
+            .pageMds h1 {
+                border-left: 4px solid #085AA5;
+                padding-left: .4em;
+                font-size: 180%;
+                font-weight: 700;
+                color: #085AA5;
+            }
+
+            .pageMds p.note {
+                font-size: 93%;
+                color: #085AA5;
+                padding: .5em 1em;
+            }
+
+        .column-left-od {
+            float: left;
+            width: 200px;
+        }
+
+        .column-right-od {
+            float: right;
+            width: 770px;
+        }
+
+        .mds-od {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+            .mds-od h2 {
+                padding-left: 52px;
+                background: url(./Content/images/site/opendata/mds_cate_all.png) no-repeat 0 0 rgba(0,0,0,0);
+                font-size: 220%;
+                line-height: 43px;
+            }
+
+        .column-left-dt {
+            float: left;
+            width: 430px;
+        }
+
+        .column-right-dt {
+            float: right;
+            width: 540px;
+        }
+
+        .outer-module2 {
+            border: 1px solid #dcdcdc;
+            border-top: 0;
+            box-sizing: border-box;
+            background-color: #fff;
+            margin: 0 0 10px;
+            padding: 5px 10px 10px;
+        }
+
+            .outer-module2 p {
+                font-size: 93%;
+                padding-bottom: 5px;
+            }
+
+        .outer-map {
+            display: block;
+            width: 100%;
+            height: 540px;
+            box-sizing: border-box;
+        }
+
+        .listMapcate {
+            box-sizing: border-box;
+            border: 1px solid #fff;
+            background-color: #fff;
+            line-height: 2;
+        }
+
+            .listMapcate li {
+                width: auto;
+                background-color: #ececfb;
+                border-bottom: 1px solid #fff;
+                position: relative;
+            }
+
+                .listMapcate li:last-child {
+                    border-bottom: none;
+                }
+
+                .listMapcate li a {
+                    display: block;
+                    height: 40px;
+                    font-size: 116%;
+                    line-height: 40px;
+                    text-decoration: none;
+                    padding: 0 0 0 40px;
+                }
+
+                .listMapcate li.current a {
+                    background-color: #987D00;
+                    color: #fff;
+                }
+
+        .icon-chgmap {
+            background: url(./Content/images/site/opendata/mds_icon_all.png) no-repeat 0 -132px rgba(0,0,0,0);
+        }
+
+        .icon-checked {
+            background: url(./Content/images/site/opendata/list_icon_all.png) no-repeat 0 0 rgba(0,0,0,0);
+        }
+
+        .icon-nocheck {
+            background: url(./Content/images/site/opendata/list_icon_all.png) no-repeat 0 -22px rgba(0,0,0,0);
+        }
+
+        li:hover .icon-nocheck {
+            background: url(./Content/images/site/opendata/list_icon_all.png) no-repeat 0 -44px rgba(0,0,0,0);
+        }
+
+        .icon-facility {
+            background: url(./Content/images/site/opendata/mds_icon_all.png) no-repeat 0 -154px rgba(0,0,0,0);
+        }
+
+        .icon-download {
+            background: url(./Content/images/site/opendata/mds_icon_all.png) no-repeat 0 -176px rgba(0,0,0,0);
+        }
+
+        .list-download {
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            border-bottom: 5px solid #ededed;
+        }
+
+            .list-download li {
+                font-size: 100%;
+                position: relative;
+            }
+
+                .list-download li a {
+                    padding-left: 45px;
+                    height: auto;
+                    line-height: 40px;
+                    font-size: 120%;
+                    font-weight: 700;
+                }
+
+        .file-icon {
+            bottom: 0;
+            display: inline-block;
+            height: 30px;
+            left: 7px;
+            position: absolute;
+            top: 0;
+            width: 30px;
+            margin: auto;
+        }
+
+        .icon-csv {
+            background: url(./Content/images/site/opendata/file-icon/ico_csv.png) no-repeat 0 0 rgba(0,0,0,0);
+        }
+
+        .icon-pdf {
+            background: url(./Content/images/site/opendata/file-icon/ico_pdf.png) no-repeat 0 0 rgba(0,0,0,0);
+        }
+
+        .tbl-opendata {
+            width: 100%;
+        }
+
+            .tbl-opendata th {
+                text-align: center;
+                background-color: #333;
+                border: 1px solid #999;
+                font-size: 93%;
+                color: #fff;
+                line-height: 2;
+                white-space: nowrap;
+            }
+
+            .tbl-opendata tr.tr-odd td {
+                background-color: #f0f0fe;
+            }
+
+            .tbl-opendata tr.tr-even td {
+                background-color: #fff;
+            }
+
+            .tbl-opendata td {
+                background-color: #fff;
+                border: 1px solid #ddd;
+                padding: 2px 4px;
+            }
+
+                .tbl-opendata td.c1 {
+                    vertical-align: top;
+                }
+
+                .tbl-opendata td.c4, .tbl-opendata td.c5 {
+                    text-align: center;
+                }
+
+        .btn-link-s, .btn-link-c, .btn-link-d, .btn-link-gis {
+            border-radius: 2px;
+            font-size: 18px;
+            color: #fff !important;
+            text-decoration: none;
+            white-space: nowrap;
+            padding: 2px 4px;
+        }
+        .btn-link-d .visited{
+
+        }
+
+        .btn-link-s {
+            background-color: #cb6214;
+        }
+
+        .btn-link-c {
+        }
+
+        .btn-link-csv, .btn-link-shape, .btn-link-kml, .btn-link-geojson, .btn-link-external {
+            margin:2px 0 0 0;
+        }
+
+        .btn-link-csv {
+            background-color: #3fcb14;
+        }
+
+        .btn-link-shape {
+            background-color: #3fcb14;
+        }
+
+        .btn-link-kml {
+            background-color: #3fcb14;
+        }
+
+        .btn-link-geojson {
+            background-color: #3fcb14;
+        }
+
+        .btn-link-external {
+            background-color: #3fcb14;
+        }
+
+        .btn-link-d {
+            background-color: #085AA5;
+        }
+
+            .btn-link-s:hover, .btn-link-c:hover, .btn-link-d:hover {
+                color: #fff;
+            }
+
+        .btn-link-gis {
+            border-radius: 2px;
+            background-color: #A54310;
+            font-size: 140%;
+            color: #fff;
+            text-decoration: none;
+            white-space: nowrap;
+            padding: .3em 1em;
+        }
+
+        .mds-icon2, .list-icon {
+            bottom: 0;
+            display: inline-block;
+            height: 22px;
+            left: 7px;
+            position: absolute;
+            top: 0;
+            width: 22px;
+            margin: auto;
+        }
+
+        .mds {
+            background-color: #fff;
+            border: 1px solid #dcdcdc;
+            padding: 1px;
+            position: relative;
+        }
+
+            .mds h2 {
+                background-color: #085AA5;
+                color: #fff;
+                font-size: 125%;
+                height: 32px;
+                line-height: 34px;
+                padding-left: 32px;
+                text-shadow: 1px 1px 2px #003366;
+            }
+
+        .pager {
+            text-align: center;
+        }
+        .pager .current{
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        var mids = "";
+        var totalCount = "33";
+        var current_page = 1;
+        var records_per_page = 20;
+    </script>
+</head>
+<body>
+    <!--ヘッダー-->
+
+<script type="text/javascript">
+    var mid;
+
+    $(function () {
+        mid = $('#MapId,#MapSelect').val() == null ? "" : $('#MapId,#MapSelect').val();
+
+        var langmodeParam = "";
+        
+        var langmode = "0";
+
+        if (langmode != 0) {
+            langmodeParam = "&langmode=" + langmode;
+        }
+
+        if ($('#a_PositionSelect').length > 0) {
+            if ("OpenData" != "Agreement") {
+                $('#a_PositionSelect').attr('href', GetAbsoluteUrl("PositionSelect?mid=" + mid + langmodeParam));
+            }
+            else {
+                $('#a_PositionSelect').attr('href', GetAbsoluteUrl("PositionSelect?mid=" + "" + langmodeParam));
+            }
+        }
+
+        if ($('#a_AddressSearch').length > 0) {
+            $('#a_AddressSearch').attr('href', GetAbsoluteUrl("AddressSearch?mid=" + mid + langmodeParam));
+        }
+
+        if ("1" == "1" && "false" == "true") {
+            $("#li_Agreement").show();
+        }
+        else {
+            $("#li_Agreement").hide();
+        }
+    });
+
+    var onRefuse = function () {
+        $('#MapId,#MapSelect').val(OldMapId);
+        $('#MapId').triggerHandler("onRefuse");
+
+        onClose();
+    }
+
+    var onAgree = function () {
+        mid = $('#MapId,#MapSelect').val() == null ? "" : $('#MapId,#MapSelect').val();
+
+        var langmodeParam = "";
+        if (langmode != 0) {
+            langmodeParam = "&langmode=" + langmode;
+        }
+
+        if ("OpenData" == "PositionSelect") {
+            RedirectUrl(GetAbsoluteUrl("PositionSelect?mid=" + mid + langmodeParam));
+        }
+
+        OldMapId = mid;
+        if (typeof (oG0501AData) != "undefined" && oG0501AData != null) {
+            oG0501AData.mid = mid;
+        }
+        if ("1" == "1") {
+            $("#li_Agreement").show();
+        }
+
+        var langmodeParam = "";
+        if (langmode != 0) {
+            langmodeParam = "&langmode=" + langmode;
+        }
+        if ($('#a_PositionSelect').length > 0) {
+            $('#a_PositionSelect').attr('href', GetAbsoluteUrl("PositionSelect?mid=" + mid + langmodeParam));
+        }
+
+        if ($('#a_AddressSearch').length > 0) {
+            $('#a_AddressSearch').attr('href', GetAbsoluteUrl("AddressSearch?mid=" + mid + langmodeParam));
+        }
+        onClose();
+    }
+
+    var onClose = function () {
+        top.dofunction.iframeobj.hide();
+    }
+
+    // 利用許諾画面を開く
+    var OpenAgree = function (Parent) {
+        mid = $('#MapId,#MapSelect').val() == null ? "" : $('#MapId,#MapSelect').val();
+
+        var args = {
+            width: GetWinWidth() - 100,
+            height: GetWinHeight() - 100,
+            src: '../Agreement',
+            title: "利用許諾",
+            closebutton: false,
+            dofunction: {
+                onAgree: onAgree,
+                onRefuse: onRefuse,
+                onClose: onClose
+            }
+        };
+        var oG0304CWindow = new IframeWindow(args);
+        if (langmode == 0) {
+        oG0304CWindow.open({ modal: 1, MapId: mid, Parent: Parent });
+        } else {
+            oG0304CWindow.open({ modal: 1, MapId: mid, langmode: langmode, Parent: Parent });
+        }
+    }
+</script>
+<head>
+    <link rel="stylesheet" type="text/css" media="all" href="./Content/CSS/pages/top/crumbs.css" />
+</head>
+<header id="header">
+    <div id="headerInner" class="clearfix">
+        <a href="../Portal"><h1>
+            <!--img src="./Content/images/pages/top/logo.png" alt="ひろしま地図ナビ"--></h1></a>
+        <nav id="headerNav">
+            <ul>
+                                <!--li class="btn-zsite-li"><a onclick="openZoomSight();" class="btn-zsite">ズームサイト</a></li-->
+                  <li><a href="./Content/pages/help/help.html" onclick="window.open(this.href, '使い方ガイド', 'width=800,height=768,toolbar=no,menubar=no,location=no,status=no,resizable=yes'); return false;" class="btn-help">
+                  <!--img src="./Content/images/pages/top/btn_guide_off.jpg" alt="使い方ガイド"-->
+                  </a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<!--/#header-->
+
+<div id="topicPath">
+    <div id="topicPathInner" class="clearfix">
+        <ul class="crumbs">
+                        <li><a href="./../Portal">トップページ</a><span>＞</span></li>
+                        <li id="li_Agreement"><a href='javascript:void(0);' onclick="OpenAgree('OpenData');" onkeypress="OpenAgree('OpenData');" tabindex="0">利用許諾</a><span>＞</span></li>
+                <li><a class="current">オープンデータ一覧</a></li>
+        </ul>
+
+    </div>
+    <!--/#statusArea-->
+</div>
+<!--/#topicPath-->
+
+
+    <article>
+            <div id="contents">
+                <div class="contents-inner clearfix">
+                    <!--■ 見出し／説明------------------------------------------------------------------------------>
+                    <div class="pageMds">
+                        <h1>オープンデータ一覧</h1>
+                        <p class="note">
+                            地図情報がオープンデータとして公開されています。準備中と表示されている場合は、システムが地図情報の更新内容をオープンデータとして公開する準備をしています。しばらくお待ちください。
+                        </p>
+                    </div>
+                </div>
+                <!--■ 左カラム------------------------------------------------------------------------------>
+                <div class="column-left-od">
+                    <div class="mds">
+                        <h2><span class="list-icon icon-chgmap"></span>カテゴリの切替</h2>
+                    </div>
+                    <div class="outer-module">
+                        <ul class="listMapcate">
+                            <li class="current" data-mapid="" data-url="../OpenData/">
+                                <span class="list-icon icon-checked"></span>
+                                <a href="javascript:void(0);">全て</a>
+                            </li>
+
+                                    <li class="map-1" data-mapid="1" data-url="/hiroshimacity/OpenData/">
+                                        <span class="list-icon icon-nocheck"></span>
+                                        <a href="javascript:void(0);">施設情報</a>
+                                    </li>
+                                    <li class="map-14" data-mapid="14" data-url="/hiroshimacity/OpenData/">
+                                        <span class="list-icon icon-nocheck"></span>
+                                        <a href="javascript:void(0);">土砂災害警戒区域</a>
+                                    </li>
+                                    <li class="map-15" data-mapid="15" data-url="/hiroshimacity/OpenData/">
+                                        <span class="list-icon icon-nocheck"></span>
+                                        <a href="javascript:void(0);">洪水浸水想定（計画規模）</a>
+                                    </li>
+                                    <li class="map-16" data-mapid="16" data-url="/hiroshimacity/OpenData/">
+                                        <span class="list-icon icon-nocheck"></span>
+                                        <a href="javascript:void(0);">津波浸水想定図</a>
+                                    </li>
+                                    <li class="map-17" data-mapid="17" data-url="/hiroshimacity/OpenData/">
+                                        <span class="list-icon icon-nocheck"></span>
+                                        <a href="javascript:void(0);">内水浸水想定区域図</a>
+                                    </li>
+                                    <li class="map-18" data-mapid="18" data-url="/hiroshimacity/OpenData/">
+                                        <span class="list-icon icon-nocheck"></span>
+                                        <a href="javascript:void(0);">高潮浸水想定区域図</a>
+                                    </li>
+                                    <li class="map-19" data-mapid="19" data-url="/hiroshimacity/OpenData/">
+                                        <span class="list-icon icon-nocheck"></span>
+                                        <a href="javascript:void(0);">ため池ハザードマップ</a>
+                                    </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <!--/.column-left-->
+
+                <div class="column-right-od">
+                    <div class="mds-od">
+                        <h2>全て</h2>
+                    </div>
+                    <div class="outer-module">
+                        <table class="tbl-opendata">
+                            <thead>
+                                <tr>
+                                    <th>データ名</th>
+                                    <th>説明</th>
+                                    <th>掲載日</th>
+                                    <th>ダウンロード</th>
+                                    <th>詳細</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                <tr class="tr-even" data-layerid="13">
+                    <td class="c1" rowspan="1">公園・緑地</td>
+                    <td class="c2" rowspan="1">公園・緑地</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_13.csv">csv (185.09 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_13.zip">shape (59.7 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_13.kml">kml (1668.54 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_13.geojson">geojson (524.81 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=13">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="602">
+                    <td class="c1" rowspan="1">上水道_下水道施設</td>
+                    <td class="c2" rowspan="1">上水道・下水道施設</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_602.csv">csv (8.54 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_602.zip">shape (3.31 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_602.kml">kml (72.46 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_602.geojson">geojson (27.54 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=602">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="603">
+                    <td class="c1" rowspan="1">環境関連施設</td>
+                    <td class="c2" rowspan="1">環境関連施設</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_603.csv">csv (6.86 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_603.zip">shape (3.2 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_603.kml">kml (67.11 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_603.geojson">geojson (24.83 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=603">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="604">
+                    <td class="c1" rowspan="1">市営墓地_火葬場等</td>
+                    <td class="c2" rowspan="1">市営墓地・火葬場等</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_604.csv">csv (7.7 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_604.zip">shape (3.03 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_604.kml">kml (121.26 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_604.geojson">geojson (42.05 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=604">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="605">
+                    <td class="c1" rowspan="1">社会教育施設等</td>
+                    <td class="c2" rowspan="1">社会教育施設等</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_605.csv">csv (2.75 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_605.zip">shape (2.01 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_605.kml">kml (21.24 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_605.geojson">geojson (7.97 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=605">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="606">
+                    <td class="c1" rowspan="1">文化_スポーツ関連施設</td>
+                    <td class="c2" rowspan="1">文化・スポーツ関連施設</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_606.csv">csv (157.69 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_606.zip">shape (51.39 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_606.kml">kml (1837.47 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_606.geojson">geojson (670.78 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=606">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="32">
+                    <td class="c1" rowspan="1">農林水産業関連施設</td>
+                    <td class="c2" rowspan="1">農林水産業関連施設</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_32.csv">csv (3.03 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_32.zip">shape (1.93 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_32.kml">kml (14.8 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_32.geojson">geojson (5.81 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=32">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="607">
+                    <td class="c1" rowspan="1">市営駐車場_駐輪場</td>
+                    <td class="c2" rowspan="1">市営駐車場・駐輪場</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_607.csv">csv (32.69 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_607.zip">shape (8.83 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_607.kml">kml (297.88 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_607.geojson">geojson (113.15 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=607">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="608">
+                    <td class="c1" rowspan="1">その他の公共施設</td>
+                    <td class="c2" rowspan="1">その他の公共施設</td>
+
+                    <td class="c3"></td>
+
+                    <td class="c4">
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=608">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="609">
+                    <td class="c1" rowspan="1">幼稚園</td>
+                    <td class="c2" rowspan="1">幼稚園</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_609.csv">csv (21.36 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_609.zip">shape (8.31 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_609.kml">kml (305.8 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_609.geojson">geojson (107.88 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=609">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="610">
+                    <td class="c1" rowspan="1">保育園等</td>
+                    <td class="c2" rowspan="1">保育園等</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_610.csv">csv (97.43 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_610.zip">shape (36 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_610.kml">kml (1374.31 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_610.geojson">geojson (487.45 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=610">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="611">
+                    <td class="c1" rowspan="1">小学校</td>
+                    <td class="c2" rowspan="1">小学校</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_611.csv">csv (47.31 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_611.zip">shape (16.72 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_611.kml">kml (597.76 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_611.geojson">geojson (215.11 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=611">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="612">
+                    <td class="c1" rowspan="1">中学校</td>
+                    <td class="c2" rowspan="1">中学校</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_612.csv">csv (27.16 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_612.zip">shape (10.78 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_612.kml">kml (315.39 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_612.geojson">geojson (114.84 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=612">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="613">
+                    <td class="c1" rowspan="1">高等学校</td>
+                    <td class="c2" rowspan="1">高等学校</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_613.csv">csv (14.18 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_613.zip">shape (5.81 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_613.kml">kml (180.72 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_613.geojson">geojson (64.59 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=613">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="21">
+                    <td class="c1" rowspan="1">市営住宅</td>
+                    <td class="c2" rowspan="1">市営住宅</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_21.csv">csv (17.25 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_21.zip">shape (6.32 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_21.kml">kml (174.48 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_21.geojson">geojson (54.86 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=21">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="614">
+                    <td class="c1" rowspan="1">その他学校</td>
+                    <td class="c2" rowspan="1">その他学校</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_614.csv">csv (5.38 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_614.zip">shape (2.94 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_614.kml">kml (65.63 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_614.geojson">geojson (23.35 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=614">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="615">
+                    <td class="c1" rowspan="1">高等教育学校</td>
+                    <td class="c2" rowspan="1">高等教育学校</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_615.csv">csv (17.7 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_615.zip">shape (7.7 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_615.kml">kml (245.19 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_615.geojson">geojson (86.84 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=615">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="616">
+                    <td class="c1" rowspan="1">小中学校通学区域</td>
+                    <td class="c2" rowspan="1">小中学校通学区域</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_616.csv">csv (41.19 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_616.zip">shape (614.05 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_616.kml">kml (2572.52 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_616.geojson">geojson (2332.3 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=616">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="617">
+                    <td class="c1" rowspan="1">病院</td>
+                    <td class="c2" rowspan="1">病院</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_617.csv">csv (566.73 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_617.zip">shape (232.84 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_617.kml">kml (8059.59 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_617.geojson">geojson (2860.03 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=617">詳細</a>
+                    </td>
+                </tr>
+                <tr class="tr-even" data-layerid="214">
+                    <td class="c1" rowspan="1">公衆トイレ</td>
+                    <td class="c2" rowspan="1">公衆トイレ</td>
+
+                    <td class="c3">2026/02/16</td>
+
+                    <td class="c4">
+                                <div class="btn-link-csv">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/CSV/opendata_214.csv">csv (74.84 KB)</a>
+                                </div>
+                                <div class="btn-link-shape">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/SHAPE/opendata_214.zip">shape (24.92 KB)</a>
+                                </div>
+                                <div class="btn-link-kml">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/KML/opendata_214.kml">kml (643.55 KB)</a>
+                                </div>
+                                <div class="btn-link-geojson">
+                                    <a class="btn-link-c" href="javascript:void(0);" data-downloadpath="https://www2.wagmap.jp/hiroshimacity/hiroshimacity/opendatafile/map_1/JSON/opendata_214.geojson">geojson (203.12 KB)</a>
+                                </div>
+                                            </td>
+
+                    <td class="c5" rowspan="1">
+                        <a class="btn-link-d" href="javascript:void(0);" action-url="/hiroshimacity/OpenDataDetail?lid=214">詳細</a>
+                    </td>
+                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="pager" data-url="/hiroshimacity/OpenData/">
+                            <span id="paging">
+                                <a id="first" class="current">|&lt;</a>
+                                <a id="prev" class="current">&lt;</a>
+                                <span id="page" class="current"></span>
+                                <a id="next" class="current">&gt;</a>
+                                <a id="last" class="current">&gt;|</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="dialog-agreement" data-url-dp="../OpenDataAgreement" data-url-dl="../OpenDataAgreement" style=" overflow: hidden; ">
+            </div>
+
+    </article>
+
+    <footer id="footer">
+        <div class="footer-inner clearfix">
+            <address>
+                <span>広島市役所</span>
+                <div>
+                    <span>〒730-8586　広島市中区国泰寺町1丁目6番34号</span>
+                    <span></span>
+                </div>
+            </address>
+            <p id="copyright">Copyright (C)Hiroshima City. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/v/common/Scripts/pages/jquery.extend.js"></script>
+    <script type="text/javascript" src="/v/common/Scripts/pages/OpenData.js"></script>
+</body>
+</html>
+
+
+    <script type="text/javascript" src="/v/common/Scripts/jquery.showLoading.js"></script>
+    
+</body>
+</html>
+
